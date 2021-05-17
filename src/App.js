@@ -33,13 +33,23 @@ function App() {
     setTasks(filteredTask)
 
   }
+
+  const editTask = (id) => {
+
+    const filteredTask = tasks.filter(task => task.id !== id)
+
+    seteditMode(true)
+    setid(id)
+
+  }
   return (
     <div className="container">
       <h1>Tasks</h1>
       <hr />
       <div className="row">
         <div className="col-8">
-          <h4 className="text-center">List</h4>
+          <h4 className="text-center">
+            {editMode ? "Edit Task" : "Add Task"}</h4>
           {
             size(tasks) == 0 ?(
               <h5 className="text-center"> No hay tareas programadas</h5>
@@ -57,6 +67,7 @@ function App() {
                   </button>
                   <button 
                   className="btn btn-warning btn-sm float-right"
+                  onClick={() => editTask(task.id)}
                   >
                     Edit
   
