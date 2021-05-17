@@ -25,21 +25,22 @@ function App() {
   }
   return (
     <div className="container">
-      <h1>Tareas</h1>
+      <h1>Tasks</h1>
       <hr />
       <div className="row">
         <div className="col-8">
-          <h4 className="text-center">Lista de Tareas</h4>
+          <h4 className="text-center">List</h4>
           <ul className="list-group">
             {
               tasks.map((task) => (
                 <li className="list-group-item" key={task.id}>
                 <span className="lead">{task.name} </span>
                 <button className="mx-2 btn btn-danger btn-sm float-right">
-                  Eliminar{" "}
+                  Delete
                 </button>
                 <button className="btn btn-warning btn-sm float-right">
-                  Edit{" "}
+                  Edit
+
                 </button>
               </li>
 
@@ -53,17 +54,17 @@ function App() {
           </ul>
         </div>
         <div className="col-4">
-          <h4 className="text-center"> Formulario</h4>
+          <h4 className="text-center"> Form</h4>
           <form onSubmit={addTask}>
             <input
               type="text"
               className="form-control mb-2"
-              placeholder="Ingrese la tarea..."
+              placeholder="Insert task..."
               onChange={(text) => setTask(text.target.value)}
               value={task}
             />
             <button type="submit" className="btn btn-dark btn-block">
-              Agregar
+              Add
             </button>
           </form>
         </div>
