@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import {isEmpty} from 'lodash'
+import {isEmpty, size} from 'lodash'
 import shortid from 'shortid'
 
 function App() {
   const [task, setTask] = useState("")
   const [tasks, setTasks] = useState([])
+  const [editMode, seteditMode] = useState(false)
+  const [id, setid] = useState("")
+  const  [error, setError] = useState(null)
 
   const addTask = (e) => {
     e.preventDefault();
@@ -21,7 +24,14 @@ function App() {
 
     setTasks([...tasks, newTask])
     setTask("")
-    
+  }
+  
+  const deleteTask = (id) => {
+
+    const filteredTask = tasks.filter(task => task.id !== id)
+
+    setTasks(filteredTask)
+
   }
   return (
     <div className="container">
@@ -30,29 +40,43 @@ function App() {
       <div className="row">
         <div className="col-8">
           <h4 className="text-center">List</h4>
-          <ul className="list-group">
-            {
-              tasks.map((task) => (
-                <li className="list-group-item" key={task.id}>
-                <span className="lead">{task.name} </span>
-                <button className="mx-2 btn btn-danger btn-sm float-right">
-                  Delete
-                </button>
-                <button className="btn btn-warning btn-sm float-right">
-                  Edit
+          {
+            size(tasks) == 0 ?(
+              <h5 className="text-center"> No hay tareas programadas</h5>
+            ) : (
+              <ul className="list-group">
+              {
+                tasks.map((task) => (
+                  <li className="list-group-item" key={task.id}>
+                  <span className="lead">{task.name} </span>
+                  <button 
+                  className="mx-2 btn btn-danger btn-sm float-right"
+                  onClick={() => deleteTask(task.id)}
+                  >
+                    Delete
+                  </button>
+                  <button 
+                  className="btn btn-warning btn-sm float-right"
+                  >
+                    Edit
+  
+                  </button>
+                </li>
+  
+                ))
+  
+  
+  
+              }
+  
+              
+            </ul>
+          
+            )
+          }
 
-                </button>
-              </li>
 
-              ))
-
-
-
-            }
-
-            
-          </ul>
-        </div>
+         </div>
         <div className="col-4">
           <h4 className="text-center"> Form</h4>
           <form onSubmit={addTask}>
